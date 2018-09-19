@@ -1,0 +1,79 @@
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='$#,##0.00;($#,##0.00)';
+SET TimeFormat='h:mm:ss TT';
+SET DateFormat='M/D/YYYY';
+SET TimestampFormat='M/D/YYYY h:mm:ss[.fff] TT';
+SET FirstWeekDay=6;
+SET BrokenWeeks=1;
+SET ReferenceDay=0;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-US';
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+LOAD @1 as FACT_ID, 
+     @2 as COMPANY_ID, 
+     @3 as DATE_TIME_STAMP_ID, 
+     @4 as MARKET_CAPITAL_IN_MILLION, 
+     @5 as PRICE_EARNINGS_RATIO, 
+     @6 as RETURN_ON_EQUITY, 
+     @7 as NET_PROFIT_MARGIN
+FROM
+[D:\VanshajB Work\Industry Analysis\MyProj\src files\fact_industry_analysis.dat]
+(txt, codepage is 1252, no labels, delimiter is ',', msq);
+
+
+LOAD @1 as COMPANY_ID, 
+     @2 as COMPANY_NAME, 
+     @3 as COUNTRY, 
+     @4 as CITY, 
+     @5 as ZIPCODE, 
+     @6 as INDUSTRY_ID
+FROM
+[D:\VanshajB Work\Industry Analysis\MyProj\src files\dim_company.dat]
+(txt, codepage is 1252, no labels, delimiter is ',', msq);
+
+LOAD @1 as INDUSTRY_ID, 
+     @2 as INDUSTRY_NAME
+FROM
+[D:\VanshajB Work\Industry Analysis\MyProj\src files\dim_industry.dat]
+(txt, codepage is 1252, no labels, delimiter is ',', msq);
+
+LOAD @1 as FACT1_ID, 
+     @2 as COMPANY_ID, 
+     @3 as DESIGNATION_ID, 
+     @4 as EXPERIENCE_ID, 
+     @5 as DATE_TIME_STAMP_ID, 
+     @6 as NO_OF_EMP, 
+     @7 as AVG_SALARY_IN_LACS
+FROM
+[D:\VanshajB Work\Industry Analysis\MyProj\src files\fact_avg_sal.dat]
+(txt, codepage is 1252, no labels, delimiter is ',', msq);
+
+
+LOAD @1 as EXPERIENCE, 
+     @2 as EXPERIENCE_ID
+FROM
+[D:\VanshajB Work\Industry Analysis\MyProj\src files\dim_experience.dat]
+(txt, codepage is 1252, no labels, delimiter is ',', msq);
+
+LOAD @1 as DESIGNATION_ID, 
+     @2 as DESIGNATION_NAME
+FROM
+[D:\VanshajB Work\Industry Analysis\MyProj\src files\dim_designation.dat]
+(txt, codepage is 1252, no labels, delimiter is ',', msq);
+
+
+LOAD @1 as DATE_TIME_STAMP_ID, 
+     @2 as YEAR, 
+     @3 as QUATER, 
+     @4 as MONTH, 
+     @5 as DAY_OF_WEEK, 
+     @6 as DATE_FLD
+FROM
+[D:\VanshajB Work\Industry Analysis\MyProj\src files\dim_datetime.dat]
+(txt, codepage is 1252, no labels, delimiter is ',', msq);
